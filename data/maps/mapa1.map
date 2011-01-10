@@ -1,0 +1,21 @@
+grass
+1000
+1000
+
+tree1 Test_tree 400 100 auto
+tree1 Test_tree2 650 100 auto
+tree1 Test_tree3 900 100 auto
+tree1 Test_tree4 150 100 auto
+tree1 Test_treex 400 250 auto
+tree1 Test_tree2x 650 250 auto
+tree1 Test_tree3x 900 250 auto
+tree1 Test_tree4x 150 250 auto
+road1 Cesta_1 400 200 ground
+road1 Cesta_2 528 200 ground
+road1 Cesta_3 656 200 ground
+road1 Cesta_4 784 200 ground
+road1 Cesta_5 912 200 ground
+road1 Cesta_6 272 200 ground
+road1 Cesta_7 144 200 ground
+road1 Cesta_8 16 200 ground
+road1 Cesta_9 1040 200 ground

@@ -1,0 +1,69 @@
+MF Engine - prototype (original, January 2011)
+---------------------
+All code by Milan Falešník
+There is experimentally an "magic sqrt" implementation by John Carmack for Quake Engine, the only code I haven't written.
+Graphics by  Reiner "Tiles" Prokein (http://reinerstileset.4players.de).
+Sound samples by freesound.org
+Supplied music MID is taken from OpenTTD Music pack, it's here only for demonstrational purposes.
+
+You can modify all datafiles to play with the game more, it's fully moddable.
+
+
+HOW TO MOD?
+-----------
+
+Important:
+- BMP transparent color is RGB(255, 0, 255)
+
+Actor modding
+-------------
+Let 'player' is actor id. (this version of game call player actor 'a')
+Game will look for file data\actors\player.act
+structure of the file:
+
+- number of directions (for example 8 - (N, NE, E, SE, S, SW, W, NW))
+- number of frames for single directions (for example 8 - thats one animation cycle)
+- max HP (will be deprecated soon)
+Next will come the set of direction increments, here is the example:
+5	0	4	-4	0	4	-4	-5
+0	-5	-4	-4	5	4	4	0
+First line specifies increments for X and second for Y in exact order, as are the directions for actor
+- collision point X
+- collision point Y
+- collision radius
+These values are used to compute collisions and drawing layers. The X, Y values specify the point (usually in the centre of the legs, when isometric), and radius specifies the circle around the point,which will be used to compute collision.
+
+Okay, we have described the config file, now the image files.
+
+game looks for files idxyy.bmp
+id - actor id
+x - s=standing w=walking
+yy - number of frame
+If we have 8 directions, as described recently, standing anim will be consisted from files players00.bmp�players07.bmp, the bitmap directions must be exact as specified in config file.
+If we have 8 directions and 8 frames per anim as described, walking anims will consist from playerw00.bmp�playerw63.bmp. 00�07 will be first direction, 08�15 will be second direction .....
+
+Object modding
+--------------
+Object consists from two files, config file 'data\tiles\'id'.obj' and bitmap file 'data\tiles\'id'.bmp'.
+config file:
+- file name of sound, which will be played, when walking on object (this has sense only when object is ghost), file is placed in data\sounds. If null or NULL, defualt sound will be played (specified by map).
+- state (0=solid, 1=ghost). If solid, object is an obstacle (tree), if ghost, you can walk on it (road)
+- coll. point X
+- coll. point Y
+- coll. point radius
+Same as in the actor definition
+
+Map modding
+-----------
+Map consists from map definition file 'data\maps\'id'.map' and background music file 'data\music\'id'.mid'. (currently game loads map with name mapa1)
+Definition file:
+- background bitmap (fro example 'grass' - game will look for data\tiles\bkgd_'name'.bmp, so data\tiles\bkgd_grass.bmp)
+- width of the map (in pixels)
+- height of the map (in pixels)
+Shouldn't be smaller than game window, hasn't been tested
+Then follow object placement. There is unlimited number of objects. One line = one object. no spaces! one word, one parameter!
+line: <id> <ingame_name_without_spaces> <placement X> <placement Y>
+ex.:  tree1 Tree_1 234 193
+
+
+That's all important! :)
